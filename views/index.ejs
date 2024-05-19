@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Bookstore</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <style>
+    body {
+      padding-top: 50px;
+      background-color:slategrey;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #login-form {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    #book-display, #shopping-cart {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    #cart-items {
+      padding-left: 0;
+    }
+
+    .card {
+      margin-bottom: 20px;
+    }
+    .admin-login {
+  margin-top: 20px; /* Adjust margin as needed */
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Login Form -->
+    <div id="login-form">
+      <h2>Login</h2>
+      <form action="/submit" class="form" method="post">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" class="form-control" name="usernamess" id="username" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+        <a href="/register" class="btn btn-secondary">Register</a> <!-- Link to Registration Page -->
+      </form>
+      <div class="admin-login">
+        <form action="/admin-login" class="form" method="get">
+          <button type="submit" class="btn btn-info">Admin Login</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Book Display Section -->
+    <div id="book-display" style="display: none;">
+      <h2>Books</h2>
+      <input type="text" class="form-control mb-3" id="search-bar" placeholder="Search for books...">
+      <div id="book-list" class="row">
+        <!-- Book items will be dynamically added here -->
+      </div>
+    </div>
+
+    <!-- Shopping Cart Section -->
+    <div id="shopping-cart" style="display: none;">
+      <h2>Shopping Cart</h2>
+      <ul id="cart-items" class="list-group mb-3">
+        <!-- Cart items will be dynamically added here -->
+      </ul>
+      <div id="cart-total" class="text-right"></div>
+      <button type="button" class="btn btn-primary" onclick="checkout()">Checkout</button>
+    </div>
+    
+  </div>
+</body>
+</html>

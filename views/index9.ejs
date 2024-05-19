@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Books</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #f9f9f9;
+    }
+
+    .input-field {
+        width: calc(100% - 22px); /* Adjust width to fit inside container with padding */
+        padding: 8px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    .edit-button {
+        padding: 5px 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .save-button {
+        padding: 5px 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .edit-button:hover {
+        background-color: #45a049;
+    }
+    .save-button:hover {
+        background-color: #45a049;
+    }
+
+    .form-container {
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Admin Books</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Book</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% books.forEach((row, i) => { %>
+                <% row.forEach((element, j) => { %>
+                    <tr>
+                        <td><%= element.Book_name %></td>
+                        <td><%= element.Price%></td>
+                        <td><%= element.Quantity%></td>
+                        <td>
+                            <form action="/remove-book" method="post">
+                                <input type="hidden" name="bookid" value="<%= element.Book_Id %>">
+                                <button type="submit" class="edit-button">Remove</button>
+                            </form>    
+                        </td>
+                    </tr>
+                <% }); %>
+            <% }); %>
+            <!-- Add more rows for additional books -->
+        </tbody>
+    </table>
+    <div class="form-container">
+        <h2>Add Book</h2>
+        <form action="/add-book" method="post">
+            <input type="text" class="input-field" name="name" placeholder="Book Name">
+            <input type="number" class="input-field" name="quantity" placeholder="Quantity">
+            <input type="text" class="input-field" name="price" placeholder="Price">
+            <input type="text" class="input-field" name="author" placeholder="Author">
+            <button type="submit" class="save-button">Add</button>
+        </form>
+    </div>
+
+    <div class="form-container">
+        <h2>Edit Book</h2>
+        <form action="/edit-book" method="post">
+            <input type="text" class="input-field" name="name" placeholder="Book Name">
+            <input type="number" class="input-field" name="quantity" placeholder="Quantity">
+            <input type="text" class="input-field" name="price" placeholder="Price">
+            <button type="submit" class="save-button">Save</button>
+        </form>
+    </div>
+    <div class="form-container">
+        
+        <form action="/see-customer" method="post">
+            
+            <button type="submit" class="save-button">Customer</button>
+        </form>
+    </div>
+    
+</div>
+
+</body>
+</html>

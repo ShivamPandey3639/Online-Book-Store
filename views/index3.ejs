@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bookstore</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: grey; /* Set gray background for the entire body */
+    }
+    header {
+        background-color: #333;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+    }
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 0 20px;
+        background-color: #fff; /* Set white background for the container */
+        border-radius: 10px; /* Add border-radius for container */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+    }
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+    .book {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+    .book img {
+        max-width: 100px;
+        float: left;
+        margin-right: 10px;
+    }
+    .book h2 {
+        margin-top: 0;
+    }
+    .book-details {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .book .add-to-cart {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .book .add-to-cart:hover {
+        background-color: #45a049;
+    }
+    .checkout-container {
+        display: flex;
+        justify-content: flex-end; /* Align to the right */
+    }
+    .checkout-button {
+        background-color: #85d916;
+        color: #333;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        margin-top: 8px;
+        cursor: pointer;
+    }
+    .checkout-button:hover {
+        background-color: #a79b9b;
+    }
+</style>
+</head>
+<body>
+    <header>
+        <h1>Bookstore</h1>
+    </header>
+    <div class="container">
+        <form action="/search" method="post">
+            <input type="text" id="search" name="query" placeholder="Search for books...">
+            <button type="submit">Search</button>
+        </form>
+        <div class="checkout-container">
+            <form action="/checkout" method="post" class="checkout-form">
+                <button type="submit" class="checkout-button">Go To Cart</button>
+            </form>
+        </div>
+        
+        <% books.forEach((row, i) => { %>
+            <% row.forEach((element, j) => { %>
+                <div class="book">    
+                    <div class="book-details">
+                        <div>
+                            <h2><%= element.Book_name %></h2>
+                            <p>Author: <%= element.Author %></p>
+                            <p>Price: $<%= element.Price %></p>
+                        </div>
+                        <form action="/add-to-cart" method="post">
+                            <!-- Hidden input to store book ID -->
+                            <input type="hidden" name="bookid" value="<%= element.Book_Id %>">
+                            <!-- Quantity input -->
+                            <label for="quantity">Quantity:</label>
+                            <input type="number" id="quantity" name="quantity" value="1" min="1">
+                            <!-- Add to Cart button -->
+                            <button type="submit" class="add-to-cart">Add to Cart</button>
+                        </form>
+                    </div>
+                </div>
+            <% }); %>
+        <% }); %>
+        
+    </div>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shopping Cart</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: gray;
+    }
+    
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    h1 {
+        text-align: center;
+    }
+    
+    .cart {
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr 1fr;
+        border-bottom: 1px solid #ccc;
+        padding: 10px 0;
+    }
+    
+    .cart-header {
+        font-weight: bold;
+    }
+    
+    .cart-item {
+        display: flex;
+        align-items: center;
+        
+    }
+    
+    .cart-item img {
+        max-width: 100px;
+        margin-right: 10px;
+    }
+    
+    .cart-total {
+        text-align: right;
+        margin-top: 20px;
+    }
+    .quantity {
+    margin-left: auto; /* Pushes the quantity to the right */
+}
+.book-details {
+    margin-right: 10px; /* Adjust as needed */
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Shopping Cart</h1>
+    <div class="cart cart-header">
+        <div>Product</div>
+        <div>Description</div>
+        <div>Price</div>
+        <div>Quantity</div>
+    </div>
+    <% order.forEach((row, i) => { %>
+        <% row.forEach((element, j) => {  %>
+            <% if (element.Book_name == "") { %>
+                <% console.log("dd") %>
+            <% } else { %>
+                <div class="cart cart-item">
+                    <img src="https://via.placeholder.com/100" alt="Product Image">
+                     
+                    <div class="book-details">
+                        <div><%= element.Book_name %></div>
+                        <div>$<%= element.Price %></div>
+                    </div>
+                    <div class="quantity">
+                    <% if(j!=quantityArray.length){ %>
+                        <div><%= quantityArray[j] %></div>
+                    <% } %>
+                    </div>
+                </div>
+            <% } %>
+        <% }) %>
+    <% }) %>
+    
+ 
+    <div class="cart-total">
+        Total: $<%= price %>
+    </div>
+    <div class="order-btn">
+        <form action="/place-order" method="post">
+            <button type="submit">Order</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
