@@ -3,81 +3,112 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bookstore</title>
+<title>BOOKSTORE</title>
 <style>
     body {
-        font-family: Arial, sans-serif;
+        font-family: system-ui;
         margin: 0;
         padding: 0;
-        background-color: grey; /* Set gray background for the entire body */
+        background-color: #C8ACD6; /* Light purple background */
     }
     header {
-        background-color: #333;
-        color: #fff;
+        background-color: #3F3D56; /* Dark purple header */
+        color: #fff; /* White text */
         padding: 20px;
         text-align: center;
     }
     .container {
         max-width: 800px;
         margin: 20px auto;
-        padding: 0 20px;
-        background-color: #fff; /* Set white background for the container */
-        border-radius: 10px; /* Add border-radius for container */
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+        padding: 20px;
+        background-color: #fff; /* White container background */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+        display: flex;
+        flex-wrap: wrap; /* Allow items to wrap */
+        justify-content: space-between; /* Distribute items evenly */
+        align-items: center; /* Center items vertically */
     }
-    input[type="text"] {
-        width: 100%;
+    input[type="text"], input[type="number"] {
+        width: calc(100% - 100px); /* Adjust input width */
         padding: 10px;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc; /* Light border */
+        border-radius: 5px;
+        font-size: 16px;
+    }
+    input[type="text"]:focus, input[type="number"]:focus {
+        outline: none; /* Remove outline on focus */
+        border-color: #6C63FF; /* Change border color on focus */
+    }
+    button[type="submit"] {
+        background-color: #6C63FF; /* Purple button background */
+        color: #fff; /* White text */
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+    button[type="submit"]:hover {
+        background-color: #433D8B; /* Darker purple on hover */
     }
     .book {
-        border: 1px solid #ddd;
+        border: 1px solid #ddd; /* Light border */
         border-radius: 5px;
         padding: 10px;
         margin-bottom: 10px;
-    }
-    .book img {
-        max-width: 100px;
-        float: left;
-        margin-right: 10px;
-    }
-    .book h2 {
-        margin-top: 0;
+        background-color: #f9f9f9; /* Light gray background */
+        width: 100%; /* Ensure books take full width */
     }
     .book-details {
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
-    .book .add-to-cart {
-        background-color: #4CAF50;
+    .book img {
+        max-width: 100px;
+        height: auto;
+        border-radius: 5px;
+    }
+    .book h2 {
+        margin-top: 0;
+        margin-bottom: 5px;
+        color: #333; /* Dark text */
+    }
+    .book p {
+        margin: 0;
+        color: #666; /* Gray text */
+    }
+    .add-to-cart {
+        background-color: #4CAF50; /* Green button */
+        color: #fff;
+        padding: 8px 16px;
         border: none;
-        color: white;
-        padding: 10px 20px;
-        text-align: center;
-        text-decoration: none;
-        font-size: 16px;
         border-radius: 5px;
         cursor: pointer;
+        transition: background-color 0.3s ease;
     }
-    .book .add-to-cart:hover {
-        background-color: #45a049;
+    .add-to-cart:hover {
+        background-color: #45a049; /* Darker green on hover */
     }
     .checkout-container {
-        display: flex;
-        justify-content: flex-end; /* Align to the right */
+        margin-top: 10px;
+        text-align: right; /* Align buttons to the right */
+        width: 100%; /* Ensure full width */
     }
     .checkout-button {
-        background-color: #85d916;
+        background-color: #85d916; /* Light green */
         color: #333;
         padding: 10px 20px;
         border: none;
         border-radius: 5px;
-        margin-top: 8px;
         cursor: pointer;
+        transition: background-color 0.3s ease;
     }
     .checkout-button:hover {
-        background-color: #a79b9b;
+        background-color: #a79b9b; /* Darker gray on hover */
     }
 </style>
 </head>
