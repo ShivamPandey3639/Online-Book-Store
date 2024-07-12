@@ -13,8 +13,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'PHW#84#jeor',
-  database: 'book_bazzar'
+  password: 'root',
+  database: 'book_bazzar20'
 }).promise()
 
 
