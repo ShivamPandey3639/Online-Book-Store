@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <!-- Background -->
+  <rect width="64" height="64" rx="12" fill="#4a6baf" />
+  
+  <!-- Book stack -->
+  <rect x="12" y="16" width="40" height="8" rx="2" fill="#f8d56e" />
+  <rect x="14" y="16" width="36" height="2" fill="#e5b93e" />
+  
+  <rect x="14" y="26" width="36" height="8" rx="2" fill="#ff7676" />
+  <rect x="16" y="26" width="32" height="2" fill="#e55c5c" />
+  
+  <rect x="16" y="36" width="32" height="8" rx="2" fill="#7ed8b2" />
+  <rect x="18" y="36" width="28" height="2" fill="#52b88a" />
+  
+  <!-- Text "BB" for Book Bazaar -->
+  <text x="32" y="52" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="white">BB</text>
+</svg> 

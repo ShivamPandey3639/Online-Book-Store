@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="450" viewBox="0 0 300 450">
+  <!-- Book cover background -->
+  <rect width="300" height="450" fill="#f5f5f5" />
+  
+  <!-- Book spine shadow -->
+  <rect x="0" y="0" width="30" height="450" fill="#e0e0e0" />
+  
+  <!-- Book title area -->
+  <rect x="50" y="100" width="200" height="60" rx="5" fill="#4a6baf" />
+  
+  <!-- Book author area -->
+  <rect x="70" y="180" width="160" height="30" rx="5" fill="#7ed8b2" />
+  
+  <!-- Book Bazaar logo -->
+  <g transform="translate(100, 250)">
+    <rect x="0" y="0" width="100" height="100" rx="10" fill="#f8d56e" />
+    <text x="50" y="65" font-family="Arial, sans-serif" font-size="40" font-weight="bold" text-anchor="middle" fill="#333">BB</text>
+  </g>
+  
+  <!-- Text placeholders -->
+  <text x="150" y="140" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="white">Book Title</text>
+  <text x="150" y="200" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#333">Author Name</text>
+  
+  <!-- Bottom text -->
+  <text x="150" y="400" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#666">Book Bazaar Edition</text>
+</svg> 

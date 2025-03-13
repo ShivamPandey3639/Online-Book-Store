@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Bazaar - Error</title>
+    <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      .error-container {
+        max-width: 600px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        text-align: center;
+      }
+
+      .error-icon {
+        font-size: 4rem;
+        color: var(--danger-color);
+        margin-bottom: 1rem;
+      }
+
+      .error-title {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: var(--dark-color);
+      }
+
+      .error-message {
+        margin-bottom: 2rem;
+        color: var(--gray-color);
+      }
+
+      .error-actions {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="container navbar-container">
+        <a href="/" class="navbar-brand">Book Bazaar</a>
+        <ul class="navbar-nav">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="/register" class="nav-link">Register</a></li>
+          <li><a href="/admin-login" class="nav-link">Admin</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Error Content -->
+    <div class="container">
+      <div class="error-container">
+        <div class="error-icon">
+          <i class="fas fa-exclamation-circle"></i>
+        </div>
+        <h1 class="error-title"><%= message %></h1>
+        <p class="error-message"><%= error %></p>
+        <div class="error-actions">
+          <a href="/" class="btn btn-primary">Go to Homepage</a>
+          <button
+            onclick="window.history.back()"
+            class="btn btn-outline-primary"
+          >
+            Go Back
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer mt-5">
+      <div class="container footer-container">
+        <div>
+          <h3 class="footer-title">Book Bazaar</h3>
+          <p>
+            Your one-stop destination for all your literary needs. Discover,
+            explore, and purchase books with ease.
+          </p>
+        </div>
+        <div>
+          <h3 class="footer-title">Quick Links</h3>
+          <ul class="footer-links">
+            <li class="footer-link"><a href="/">Home</a></li>
+            <li class="footer-link"><a href="/register">Register</a></li>
+            <li class="footer-link"><a href="/admin-login">Admin</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer-title">Contact Us</h3>
+          <ul class="footer-links">
+            <li class="footer-link">
+              <i class="fas fa-envelope"></i> support@bookbazaar.com
+            </li>
+            <li class="footer-link">
+              <i class="fas fa-phone"></i> +1 (555) 123-4567
+            </li>
+            <li class="footer-link">
+              <i class="fas fa-map-marker-alt"></i> 123 Book Street, Reading,
+              RG1 1DB
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2023 Book Bazaar. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>

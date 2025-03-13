@@ -1,155 +1,428 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BOOKSTORE</title>
-<style>
-    body {
-        font-family: system-ui;
-        margin: 0;
-        padding: 0;
-        background-color: #C8ACD6; /* Light purple background */
-    }
-    header {
-        background-color: #3F3D56; /* Dark purple header */
-        color: #fff; /* White text */
-        padding: 20px;
-        text-align: center;
-    }
-    .container {
-        max-width: 800px;
-        margin: 20px auto;
-        padding: 20px;
-        background-color: #fff; /* White container background */
-        border-radius: 10px; /* Rounded corners */
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Bazaar - Browse Books</title>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .page-header {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--secondary) 100%
+        );
+        color: white;
+        padding: var(--spacing-4) 0;
+        margin-bottom: var(--spacing-4);
+        border-radius: var(--border-radius);
+      }
+
+      .search-container {
         display: flex;
-        flex-wrap: wrap; /* Allow items to wrap */
-        justify-content: space-between; /* Distribute items evenly */
-        align-items: center; /* Center items vertically */
-    }
-    input[type="text"], input[type="number"] {
-        width: calc(100% - 100px); /* Adjust input width */
-        padding: 10px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc; /* Light border */
-        border-radius: 5px;
-        font-size: 16px;
-    }
-    input[type="text"]:focus, input[type="number"]:focus {
-        outline: none; /* Remove outline on focus */
-        border-color: #6C63FF; /* Change border color on focus */
-    }
-    button[type="submit"] {
-        background-color: #6C63FF; /* Purple button background */
-        color: #fff; /* White text */
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-        transition: background-color 0.3s ease;
-    }
-    button[type="submit"]:hover {
-        background-color: #433D8B; /* Darker purple on hover */
-    }
-    .book {
-        border: 1px solid #ddd; /* Light border */
-        border-radius: 5px;
-        padding: 10px;
-        margin-bottom: 10px;
-        background-color: #f9f9f9; /* Light gray background */
-        width: 100%; /* Ensure books take full width */
-    }
-    .book-details {
+        margin-bottom: var(--spacing-4);
+      }
+
+      .search-input {
+        flex: 1;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+      .search-btn {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+
+      .book-card {
+        height: 100%;
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
+      }
+
+      .book-img {
+        height: 200px;
+        background-color: var(--gray-200);
+        display: flex;
         align-items: center;
-    }
-    .book img {
-        max-width: 100px;
-        height: auto;
-        border-radius: 5px;
-    }
-    .book h2 {
-        margin-top: 0;
-        margin-bottom: 5px;
-        color: #333; /* Dark text */
-    }
-    .book p {
-        margin: 0;
-        color: #666; /* Gray text */
-    }
-    .add-to-cart {
-        background-color: #4CAF50; /* Green button */
-        color: #fff;
-        padding: 8px 16px;
+        justify-content: center;
+        font-size: 3rem;
+        color: var(--gray-500);
+      }
+
+      .book-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .book-footer {
+        margin-top: auto;
+      }
+
+      .book-price {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--primary);
+      }
+
+      .book-author {
+        color: var(--gray-600);
+        font-style: italic;
+      }
+
+      .quantity-control {
+        display: flex;
+        align-items: center;
+        margin-bottom: var(--spacing-3);
+      }
+
+      .quantity-btn {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--gray-200);
         border: none;
-        border-radius: 5px;
+        border-radius: 50%;
         cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-    .add-to-cart:hover {
-        background-color: #45a049; /* Darker green on hover */
-    }
-    .checkout-container {
-        margin-top: 10px;
-        text-align: right; /* Align buttons to the right */
-        width: 100%; /* Ensure full width */
-    }
-    .checkout-button {
-        background-color: #85d916; /* Light green */
-        color: #333;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-    .checkout-button:hover {
-        background-color: #a79b9b; /* Darker gray on hover */
-    }
-</style>
-</head>
-<body>
-    <header>
-        <h1>Bookstore</h1>
-    </header>
-    <div class="container">
-        <form action="/search" method="post">
-            <input type="text" id="search" name="query" placeholder="Search for books...">
-            <button type="submit">Search</button>
-        </form>
-        <div class="checkout-container">
-            <form action="/checkout" method="post" class="checkout-form">
-                <button type="submit" class="checkout-button">Go To Cart</button>
+      }
+
+      .quantity-input {
+        width: 50px;
+        text-align: center;
+        margin: 0 var(--spacing-2);
+        border: 1px solid var(--gray-300);
+        border-radius: var(--border-radius-sm);
+        padding: 5px;
+      }
+
+      .cart-badge {
+        position: relative;
+        display: inline-block;
+      }
+
+      .cart-count {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background-color: var(--danger);
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+      }
+
+      .filters {
+        background-color: white;
+        padding: var(--spacing-3);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        margin-bottom: var(--spacing-4);
+      }
+
+      .filter-title {
+        font-weight: 600;
+        margin-bottom: var(--spacing-2);
+      }
+
+      .filter-group {
+        margin-bottom: var(--spacing-3);
+      }
+
+      .filter-option {
+        display: flex;
+        align-items: center;
+        margin-bottom: var(--spacing-1);
+      }
+
+      .filter-checkbox {
+        margin-right: var(--spacing-2);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="container">
+        <a href="/" class="navbar-brand">
+          <i class="fas fa-book-open mr-2"></i> Book Bazaar
+        </a>
+        <ul class="navbar-nav">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="#" class="nav-link active">Books</a></li>
+          <li><a href="#" class="nav-link">Categories</a></li>
+          <li><a href="#" class="nav-link">About</a></li>
+          <li><a href="#" class="nav-link">Contact</a></li>
+          <li>
+            <form action="/checkout" method="post">
+              <button
+                type="submit"
+                class="nav-link cart-badge"
+                style="background: none; border: none"
+              >
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cart-count">0</span>
+              </button>
             </form>
-        </div>
-        
-        <% books.forEach((row, i) => { %>
-            <% row.forEach((element, j) => { %>
-                <div class="book">    
-                    <div class="book-details">
-                        <div>
-                            <h2><%= element.Book_name %></h2>
-                            <p>Author: <%= element.Author %></p>
-                            <p>Price: $<%= element.Price %></p>
-                        </div>
-                        <form action="/add-to-cart" method="post">
-                            <!-- Hidden input to store book ID -->
-                            <input type="hidden" name="bookid" value="<%= element.Book_Id %>">
-                            <!-- Quantity input -->
-                            <label for="quantity">Quantity:</label>
-                            <input type="number" id="quantity" name="quantity" value="1" min="1">
-                            <!-- Add to Cart button -->
-                            <button type="submit" class="add-to-cart">Add to Cart</button>
-                        </form>
-                    </div>
-                </div>
-            <% }); %>
-        <% }); %>
-        
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="container">
+      <div class="page-header text-center">
+        <h1>Browse Our Collection</h1>
+        <p>Find your next favorite book from our extensive collection</p>
+      </div>
     </div>
-</body>
+
+    <!-- Main Content -->
+    <div class="container">
+      <div class="row">
+        <!-- Filters Sidebar -->
+        <div class="col" style="flex: 0 0 250px">
+          <div class="filters">
+            <h3 class="filter-title">Filters</h3>
+
+            <div class="filter-group">
+              <h4>Categories</h4>
+              <div class="filter-option">
+                <input type="checkbox" id="fiction" class="filter-checkbox" />
+                <label for="fiction">Fiction</label>
+              </div>
+              <div class="filter-option">
+                <input
+                  type="checkbox"
+                  id="non-fiction"
+                  class="filter-checkbox"
+                />
+                <label for="non-fiction">Non-Fiction</label>
+              </div>
+              <div class="filter-option">
+                <input type="checkbox" id="mystery" class="filter-checkbox" />
+                <label for="mystery">Mystery</label>
+              </div>
+              <div class="filter-option">
+                <input type="checkbox" id="sci-fi" class="filter-checkbox" />
+                <label for="sci-fi">Sci-Fi & Fantasy</label>
+              </div>
+            </div>
+
+            <div class="filter-group">
+              <h4>Price Range</h4>
+              <div class="filter-option">
+                <input type="checkbox" id="price-1" class="filter-checkbox" />
+                <label for="price-1">Under $10</label>
+              </div>
+              <div class="filter-option">
+                <input type="checkbox" id="price-2" class="filter-checkbox" />
+                <label for="price-2">$10 - $20</label>
+              </div>
+              <div class="filter-option">
+                <input type="checkbox" id="price-3" class="filter-checkbox" />
+                <label for="price-3">$20 - $30</label>
+              </div>
+              <div class="filter-option">
+                <input type="checkbox" id="price-4" class="filter-checkbox" />
+                <label for="price-4">Over $30</label>
+              </div>
+            </div>
+
+            <button class="btn btn-primary" style="width: 100%">
+              Apply Filters
+            </button>
+          </div>
+        </div>
+
+        <!-- Book Listing -->
+        <div class="col">
+          <!-- Search Bar -->
+          <form action="/search" method="post" class="search-container">
+            <input
+              type="text"
+              class="form-control search-input"
+              name="query"
+              placeholder="Search for books..."
+              value="<%= search %>"
+            />
+            <button type="submit" class="btn btn-primary search-btn">
+              <i class="fas fa-search"></i>
+            </button>
+          </form>
+
+          <!-- Book Grid -->
+          <div class="book-grid">
+            <% books.forEach((row, i) => { %> <% row.forEach((element, j) => {
+            %>
+            <div class="card book-card fade-in">
+              <div class="book-img">
+                <i class="fas fa-book"></i>
+              </div>
+              <div class="card-body book-body">
+                <h3 class="card-title"><%= element.Book_name %></h3>
+                <p class="book-author">By <%= element.Author %></p>
+                <p class="book-price">$<%= element.Price %></p>
+
+                <div class="book-footer">
+                  <form action="/add-to-cart" method="post">
+                    <input
+                      type="hidden"
+                      name="bookid"
+                      value="<%= element.Book_Id %>"
+                    />
+
+                    <div class="quantity-control">
+                      <button
+                        type="button"
+                        class="quantity-btn decrease-btn"
+                        onclick="decreaseQuantity(this)"
+                      >
+                        -
+                      </button>
+                      <input
+                        type="number"
+                        name="quantity"
+                        class="quantity-input"
+                        value="1"
+                        min="1"
+                        max="<%= element.Quantity %>"
+                      />
+                      <button
+                        type="button"
+                        class="quantity-btn increase-btn"
+                        onclick="increaseQuantity(this, <%= element.Quantity %>)"
+                      >
+                        +
+                      </button>
+                    </div>
+
+                    <button
+                      type="submit"
+                      class="btn btn-primary"
+                      style="width: 100%"
+                    >
+                      <i class="fas fa-cart-plus mr-2"></i> Add to Cart
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <% }); %> <% }); %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer mt-5">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3 class="footer-title">Book Bazaar</h3>
+            <p>
+              Your one-stop destination for all your reading needs. Discover,
+              buy, and enjoy books from the comfort of your home.
+            </p>
+          </div>
+          <div class="footer-section">
+            <h3 class="footer-title">Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="/" class="footer-link">Home</a></li>
+              <li><a href="#" class="footer-link">Books</a></li>
+              <li><a href="#" class="footer-link">Categories</a></li>
+              <li><a href="#" class="footer-link">About Us</a></li>
+              <li><a href="#" class="footer-link">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3 class="footer-title">Contact Us</h3>
+            <ul class="footer-links">
+              <li>
+                <a href="mailto:info@bookbazaar.com" class="footer-link"
+                  ><i class="fas fa-envelope mr-2"></i> info@bookbazaar.com</a
+                >
+              </li>
+              <li>
+                <a href="tel:+1234567890" class="footer-link"
+                  ><i class="fas fa-phone mr-2"></i> +123 456 7890</a
+                >
+              </li>
+              <li>
+                <a href="#" class="footer-link"
+                  ><i class="fas fa-map-marker-alt mr-2"></i> 123 Book Street,
+                  Reading City</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2023 Book Bazaar. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+      // Quantity control functions
+      function decreaseQuantity(btn) {
+        const input = btn.nextElementSibling;
+        const currentValue = parseInt(input.value);
+        if (currentValue > 1) {
+          input.value = currentValue - 1;
+        }
+      }
+
+      function increaseQuantity(btn, max) {
+        const input = btn.previousElementSibling;
+        const currentValue = parseInt(input.value);
+        if (currentValue < max) {
+          input.value = currentValue + 1;
+        }
+      }
+
+      // Update cart count
+      document.addEventListener("DOMContentLoaded", function () {
+        // This would normally be set based on actual cart data
+        // For now, we'll just use a placeholder
+        document.getElementById("cart-count").textContent =
+          localStorage.getItem("cartCount") || "0";
+
+        // Add event listeners to all "Add to Cart" buttons
+        const addToCartForms = document.querySelectorAll(
+          'form[action="/add-to-cart"]'
+        );
+        addToCartForms.forEach((form) => {
+          form.addEventListener("submit", function (e) {
+            // This would normally be handled by the server response
+            // For now, we'll just increment the count locally
+            const currentCount = parseInt(
+              localStorage.getItem("cartCount") || "0"
+            );
+            const newCount = currentCount + 1;
+            localStorage.setItem("cartCount", newCount);
+            document.getElementById("cart-count").textContent = newCount;
+          });
+        });
+      });
+    </script>
+  </body>
 </html>

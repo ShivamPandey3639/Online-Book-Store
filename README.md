@@ -1,119 +1,154 @@
-# Online Book Store
+# Book Bazaar - Online Bookstore
 
-An online platform for browsing and purchasing books. The project is built using Node.js, Express.js, MySQL, and EJS templates.
+Book Bazaar is a modern, responsive online bookstore application built with Node.js, Express, and MySQL. It provides a user-friendly interface for customers to browse, search, and purchase books, as well as an admin dashboard for managing inventory and customers.
 
-## Table of Contents
-
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Routes](#routes)
-- [Screenshots](#screenshots)
-- [Contributing](#contributing)
+![Book Bazaar Screenshot](https://via.placeholder.com/800x400?text=Book+Bazaar+Screenshot)
 
 ## Features
 
-- Browse available books
-- Search for books by name
-- Add books to cart
-- Checkout and place orders
-- Admin login for managing books
-- Customer registration and login
+### Customer Features
+
+- User registration and login
+- Browse books with filtering options
+- Search functionality
+- Shopping cart management
+- Checkout process
+- Order history
+
+### Admin Features
+
+- Secure admin login
+- Dashboard with statistics
+- Book inventory management (add, edit, remove)
+- Customer management
+- Order tracking
+
+## Tech Stack
+
+- **Frontend**: HTML, CSS, JavaScript, EJS templates
+- **Backend**: Node.js, Express.js
+- **Database**: MySQL
+- **Other Libraries**:
+  - body-parser: For parsing request bodies
+  - mysql2: For MySQL database connection
 
 ## Installation
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) (v14.x or higher)
-- [MySQL](https://www.mysql.com/)
+- Node.js (v14 or higher)
+- MySQL (v5.7 or higher)
 
-### Steps
+### Database Setup
+
+1. Create a MySQL database named `book_bazzar`
+2. Import the database schema from the `database/schema.sql` file:
+   ```
+   mysql -u your_username -p book_bazzar < database/schema.sql
+   ```
+
+### Application Setup
 
 1. Clone the repository:
 
-    ```bash
-    git clone https://github.com/yourusername/online-book-store.git
-    cd online-book-store
-    ```
+   ```
+   git clone https://github.com/yourusername/book-bazaar.git
+   cd book-bazaar
+   ```
 
-2. Install the dependencies:
+2. Install dependencies:
 
-    ```bash
-    npm install
-    ```
+   ```
+   npm install
+   ```
 
-3. Set up the MySQL database:
+3. Configure the database connection in `index.js`:
 
-    - Create a database named `book_bazzar20`.
-    - Import the provided SQL schema to create tables.
-    - Update the database connection settings in `index.js`:
+   ```javascript
+   const db = mysql
+     .createConnection({
+       host: "localhost",
+       user: "your_username",
+       password: "your_password",
+       database: "book_bazzar",
+     })
+     .promise();
+   ```
 
-        ```javascript
-        const db = mysql.createConnection({
-          host: 'localhost',
-          user: 'root',
-          password: 'root',
-          database: 'book_bazzar20'
-        }).promise();
-        ```
+4. Start the application:
 
-4. Start the server:
+   ```
+   npm start
+   ```
 
-    ```bash
-    node index.js
-    ```
+5. Access the application at `http://localhost:3000`
 
-5. Open your browser and navigate to `http://localhost:3000`.
+## Project Structure
+
+```
+book-bazaar/
+├── index.js                # Main application file
+├── package.json            # Project dependencies
+├── public/                 # Static assets
+│   ├── images/             # Image assets
+│   └── styles.css          # Global CSS styles
+├── views/                  # EJS templates
+│   ├── index.ejs           # Home/Login page
+│   ├── index2.ejs          # Registration page
+│   ├── index3.ejs          # Book listing page
+│   ├── index6.ejs          # Shopping cart page
+│   ├── index7.ejs          # Order confirmation page
+│   ├── index8.ejs          # Admin login page
+│   ├── index9.ejs          # Admin dashboard
+│   ├── index10.ejs         # Customer management page
+│   └── error.ejs           # Error page
+└── database/               # Database scripts
+    └── schema.sql          # Database schema
+```
 
 ## Usage
 
-### Customer
+### Customer Access
 
-- **Registration:** Navigate to `/register` and fill out the registration form.
-- **Login:** Navigate to `/login` and enter your credentials.
-- **Browse Books:** After logging in, browse the available books on the homepage.
-- **Search Books:** Use the search bar to find books by name.
-- **Add to Cart:** Add books to your cart by specifying the quantity.
-- **Checkout:** Proceed to checkout to see the order summary and place the order.
+1. Visit the homepage and register a new account
+2. Login with your credentials
+3. Browse or search for books
+4. Add books to your cart
+5. Proceed to checkout
 
-### Admin
+### Admin Access
 
-- **Login:** Navigate to `/admin-login` and enter the admin credentials.
-- **Manage Books:** Add, edit, or remove books from the inventory.
-- **View Customers:** See the list of registered customers.
+1. Visit `/admin-login`
+2. Login with admin credentials (default: username: `ShivamPandey`, password: `1234`)
+3. Manage books, view customers, and monitor statistics
 
-## Routes
+## Improvements and Future Features
 
-### GET
-
-- `/` - Home page
-- `/register` - Registration page
-- `/admin-login` - Admin login page
-
-### POST
-
-- `/submit` - Customer login
-- `/submit2` - Admin login
-- `/register` - Customer registration
-- `/search` - Search for books
-- `/add-to-cart` - Add books to cart
-- `/checkout` - Checkout and place order
-- `/place-order` - Confirm order
-- `/remove-book` - Remove a book (Admin)
-- `/edit-book` - Edit a book (Admin)
-- `/add-book` - Add a new book (Admin)
-- `/see-customer` - View customers (Admin)
-
-## Screenshots
-
-* Add screenshots of your application here.
+- User profile management
+- Advanced search and filtering
+- Payment gateway integration
+- Order tracking
+- Email notifications
+- Mobile app version
+- Analytics dashboard
+- Recommendation system
 
 ## Contributing
 
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-branch`).
-3. Make your changes.
-4. Commit your changes (`git commit -am 'Add new feature'`).
-5. Push to the branch (`git push origin feature-branch`).
-6. Create a new Pull Request.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgements
+
+- [Express.js](https://expressjs.com/)
+- [EJS](https://ejs.co/)
+- [MySQL](https://www.mysql.com/)
+- [Font Awesome](https://fontawesome.com/)
+- [Google Fonts](https://fonts.google.com/)

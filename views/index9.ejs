@@ -1,147 +1,578 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Books</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f4f4f4;
-    }
-
-    .container {
-        max-width: 800px;
-        margin: 20px auto;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    h1 {
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Bazaar - Admin Dashboard</title>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .admin-header {
+        background: linear-gradient(
+          135deg,
+          var(--primary-dark) 0%,
+          var(--secondary) 100%
+        );
+        color: white;
+        padding: var(--spacing-4) 0;
+        margin-bottom: var(--spacing-4);
+        border-radius: var(--border-radius);
         text-align: center;
-    }
+      }
 
-    table {
+      .admin-container {
+        background-color: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        padding: var(--spacing-4);
+        margin-bottom: var(--spacing-4);
+      }
+
+      .admin-tabs {
+        display: flex;
+        border-bottom: 1px solid var(--gray-200);
+        margin-bottom: var(--spacing-4);
+      }
+
+      .admin-tab {
+        padding: var(--spacing-2) var(--spacing-3);
+        cursor: pointer;
+        font-weight: 500;
+        color: var(--gray-600);
+        border-bottom: 2px solid transparent;
+        margin-right: var(--spacing-2);
+      }
+
+      .admin-tab.active {
+        color: var(--primary);
+        border-bottom: 2px solid var(--primary);
+      }
+
+      .admin-section {
+        display: none;
+      }
+
+      .admin-section.active {
+        display: block;
+      }
+
+      .admin-table {
         width: 100%;
         border-collapse: collapse;
-    }
+        margin-bottom: var(--spacing-4);
+      }
 
-    th, td {
-        border-bottom: 1px solid #ddd;
-        padding: 10px;
+      .admin-table th {
+        background-color: var(--gray-100);
+        color: var(--gray-800);
+        font-weight: 600;
         text-align: left;
-    }
+        padding: var(--spacing-2) var(--spacing-3);
+        border-bottom: 1px solid var(--gray-300);
+      }
 
-    th {
-        background-color: #f2f2f2;
-    }
+      .admin-table td {
+        padding: var(--spacing-2) var(--spacing-3);
+        border-bottom: 1px solid var(--gray-200);
+        vertical-align: middle;
+      }
 
-    tr:hover {
-        background-color: #f9f9f9;
-    }
+      .admin-table tr:hover {
+        background-color: var(--gray-100);
+      }
 
-    .input-field {
-        width: calc(100% - 22px); /* Adjust width to fit inside container with padding */
-        padding: 8px;
-        margin: 8px 0;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-    }
-    .edit-button {
-        padding: 5px 10px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
+      .book-status {
+        display: inline-block;
+        padding: 0.25rem 0.5rem;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
 
-    .save-button {
-        padding: 5px 10px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-    .edit-button:hover {
-        background-color: #45a049;
-    }
-    .save-button:hover {
-        background-color: #45a049;
-    }
+      .status-in-stock {
+        background-color: #d1e7dd;
+        color: #0f5132;
+      }
 
-    .form-container {
+      .status-low-stock {
+        background-color: #fff3cd;
+        color: #664d03;
+      }
+
+      .status-out-of-stock {
+        background-color: #f8d7da;
+        color: #842029;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: var(--spacing-2);
+      }
+
+      .btn-sm {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.875rem;
+      }
+
+      .form-card {
+        background-color: var(--gray-100);
+        border-radius: var(--border-radius);
+        padding: var(--spacing-3);
+        margin-bottom: var(--spacing-4);
+      }
+
+      .form-card h3 {
+        margin-bottom: var(--spacing-3);
+        color: var(--gray-800);
+        font-size: 1.25rem;
+      }
+
+      .form-row {
+        display: flex;
+        gap: var(--spacing-3);
+        margin-bottom: var(--spacing-3);
+      }
+
+      .form-col {
+        flex: 1;
+      }
+
+      .stats-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: var(--spacing-3);
+        margin-bottom: var(--spacing-4);
+      }
+
+      .stat-card {
+        background-color: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        padding: var(--spacing-3);
         text-align: center;
-    }
-</style>
-</head>
-<body>
+      }
 
-<div class="container">
-    <h1>Admin Books</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Book</th>
+      .stat-icon {
+        font-size: 2rem;
+        margin-bottom: var(--spacing-2);
+        color: var(--primary);
+      }
+
+      .stat-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: var(--spacing-1);
+        color: var(--gray-800);
+      }
+
+      .stat-label {
+        color: var(--gray-600);
+        font-size: 0.875rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="container">
+        <a href="/" class="navbar-brand">
+          <i class="fas fa-book-open mr-2"></i> Book Bazaar
+        </a>
+        <ul class="navbar-nav">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="#" class="nav-link">Books</a></li>
+          <li><a href="#" class="nav-link">Categories</a></li>
+          <li><a href="#" class="nav-link">About</a></li>
+          <li><a href="#" class="nav-link">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Admin Header -->
+    <div class="container">
+      <div class="admin-header">
+        <h1>Admin Dashboard</h1>
+        <p>Manage your bookstore inventory and customers</p>
+      </div>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="container">
+      <div class="stats-cards">
+        <div class="stat-card fade-in">
+          <div class="stat-icon">
+            <i class="fas fa-book"></i>
+          </div>
+          <div class="stat-value"><%= books[0].length %></div>
+          <div class="stat-label">Total Books</div>
+        </div>
+        <div class="stat-card fade-in">
+          <div class="stat-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <div class="stat-value">--</div>
+          <div class="stat-label">Customers</div>
+        </div>
+        <div class="stat-card fade-in">
+          <div class="stat-icon">
+            <i class="fas fa-shopping-cart"></i>
+          </div>
+          <div class="stat-value">--</div>
+          <div class="stat-label">Orders</div>
+        </div>
+        <div class="stat-card fade-in">
+          <div class="stat-icon">
+            <i class="fas fa-dollar-sign"></i>
+          </div>
+          <div class="stat-value">--</div>
+          <div class="stat-label">Revenue</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+      <div class="admin-container fade-in">
+        <!-- Admin Tabs -->
+        <div class="admin-tabs">
+          <div class="admin-tab active" data-tab="books">Books</div>
+          <div class="admin-tab" data-tab="add-book">Add Book</div>
+          <div class="admin-tab" data-tab="edit-book">Edit Book</div>
+          <div class="admin-tab" data-tab="customers">Customers</div>
+        </div>
+
+        <!-- Books Section -->
+        <div class="admin-section active" id="books-section">
+          <div class="mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="book-search"
+              placeholder="Search books..."
+            />
+          </div>
+
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Book Name</th>
                 <th>Price</th>
                 <th>Quantity</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% books.forEach((row, i) => { %>
-                <% row.forEach((element, j) => { %>
-                    <tr>
-                        <td><%= element.Book_name %></td>
-                        <td><%= element.Price%></td>
-                        <td><%= element.Quantity%></td>
-                        <td>
-                            <form action="/remove-book" method="post">
-                                <input type="hidden" name="bookid" value="<%= element.Book_Id %>">
-                                <button type="submit" class="edit-button">Remove</button>
-                            </form>    
-                        </td>
-                    </tr>
-                <% }); %>
-            <% }); %>
-            <!-- Add more rows for additional books -->
-        </tbody>
-    </table>
-    <div class="form-container">
-        <h2>Add Book</h2>
-        <form action="/add-book" method="post">
-            <input type="text" class="input-field" name="name" placeholder="Book Name">
-            <input type="number" class="input-field" name="quantity" placeholder="Quantity">
-            <input type="text" class="input-field" name="price" placeholder="Price">
-            <input type="text" class="input-field" name="author" placeholder="Author">
-            <button type="submit" class="save-button">Add</button>
-        </form>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% books.forEach((row, i) => { %> <% row.forEach((element, j) => {
+              %>
+              <tr>
+                <td><%= element.Book_name %></td>
+                <td>$<%= element.Price %></td>
+                <td><%= element.Quantity %></td>
+                <td>
+                  <% if (element.Quantity > 50) { %>
+                  <span class="book-status status-in-stock">In Stock</span>
+                  <% } else if (element.Quantity > 0) { %>
+                  <span class="book-status status-low-stock">Low Stock</span>
+                  <% } else { %>
+                  <span class="book-status status-out-of-stock"
+                    >Out of Stock</span
+                  >
+                  <% } %>
+                </td>
+                <td>
+                  <div class="action-buttons">
+                    <button
+                      class="btn btn-sm btn-outline-primary edit-book-btn"
+                      data-name="<%= element.Book_name %>"
+                      data-price="<%= element.Price %>"
+                      data-quantity="<%= element.Quantity %>"
+                    >
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <form action="/remove-book" method="post" class="d-inline">
+                      <input
+                        type="hidden"
+                        name="bookid"
+                        value="<%= element.Book_Id %>"
+                      />
+                      <button
+                        type="submit"
+                        class="btn btn-sm btn-outline-danger"
+                      >
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+              <% }); %> <% }); %>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Add Book Section -->
+        <div class="admin-section" id="add-book-section">
+          <div class="form-card">
+            <h3>Add New Book</h3>
+            <form action="/add-book" method="post">
+              <div class="form-row">
+                <div class="form-col">
+                  <div class="form-group">
+                    <label for="book-name" class="form-label">Book Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="book-name"
+                      name="name"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-col">
+                  <div class="form-group">
+                    <label for="book-author" class="form-label">Author</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="book-author"
+                      name="author"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-col">
+                  <div class="form-group">
+                    <label for="book-price" class="form-label">Price</label>
+                    <input
+                      type="number"
+                      step="0.01"
+                      class="form-control"
+                      id="book-price"
+                      name="price"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-col">
+                  <div class="form-group">
+                    <label for="book-quantity" class="form-label"
+                      >Quantity</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="book-quantity"
+                      name="quantity"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-plus mr-2"></i> Add Book
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Edit Book Section -->
+        <div class="admin-section" id="edit-book-section">
+          <div class="form-card">
+            <h3>Edit Book</h3>
+            <form action="/edit-book" method="post">
+              <div class="form-group">
+                <label for="edit-book-name" class="form-label">Book Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="edit-book-name"
+                  name="name"
+                  required
+                />
+              </div>
+
+              <div class="form-row">
+                <div class="form-col">
+                  <div class="form-group">
+                    <label for="edit-book-price" class="form-label"
+                      >Price</label
+                    >
+                    <input
+                      type="number"
+                      step="0.01"
+                      class="form-control"
+                      id="edit-book-price"
+                      name="price"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-col">
+                  <div class="form-group">
+                    <label for="edit-book-quantity" class="form-label"
+                      >Quantity</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit-book-quantity"
+                      name="quantity"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save mr-2"></i> Save Changes
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Customers Section -->
+        <div class="admin-section" id="customers-section">
+          <form action="/see-customer" method="post">
+            <button type="submit" class="btn btn-primary mb-4">
+              <i class="fas fa-users mr-2"></i> View Customers
+            </button>
+          </form>
+
+          <p class="text-center">
+            Click the button above to view customer information.
+          </p>
+        </div>
+      </div>
     </div>
 
-    <div class="form-container">
-        <h2>Edit Book</h2>
-        <form action="/edit-book" method="post">
-            <input type="text" class="input-field" name="name" placeholder="Book Name">
-            <input type="number" class="input-field" name="quantity" placeholder="Quantity">
-            <input type="text" class="input-field" name="price" placeholder="Price">
-            <button type="submit" class="save-button">Save</button>
-        </form>
-    </div>
-    <div class="form-container">
-        
-        <form action="/see-customer" method="post">
-            
-            <button type="submit" class="save-button">Customer</button>
-        </form>
-    </div>
-    
-</div>
+    <!-- Footer -->
+    <footer class="footer mt-5">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3 class="footer-title">Book Bazaar</h3>
+            <p>
+              Your one-stop destination for all your reading needs. Discover,
+              buy, and enjoy books from the comfort of your home.
+            </p>
+          </div>
+          <div class="footer-section">
+            <h3 class="footer-title">Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="/" class="footer-link">Home</a></li>
+              <li><a href="#" class="footer-link">Books</a></li>
+              <li><a href="#" class="footer-link">Categories</a></li>
+              <li><a href="#" class="footer-link">About Us</a></li>
+              <li><a href="#" class="footer-link">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3 class="footer-title">Contact Us</h3>
+            <ul class="footer-links">
+              <li>
+                <a href="mailto:info@bookbazaar.com" class="footer-link"
+                  ><i class="fas fa-envelope mr-2"></i> info@bookbazaar.com</a
+                >
+              </li>
+              <li>
+                <a href="tel:+1234567890" class="footer-link"
+                  ><i class="fas fa-phone mr-2"></i> +123 456 7890</a
+                >
+              </li>
+              <li>
+                <a href="#" class="footer-link"
+                  ><i class="fas fa-map-marker-alt mr-2"></i> 123 Book Street,
+                  Reading City</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2023 Book Bazaar. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
 
-</body>
+    <!-- JavaScript -->
+    <script>
+      // Tab switching
+      const tabs = document.querySelectorAll(".admin-tab");
+      const sections = document.querySelectorAll(".admin-section");
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", function () {
+          const tabId = this.getAttribute("data-tab");
+
+          // Remove active class from all tabs and sections
+          tabs.forEach((t) => t.classList.remove("active"));
+          sections.forEach((s) => s.classList.remove("active"));
+
+          // Add active class to current tab and section
+          this.classList.add("active");
+          document.getElementById(tabId + "-section").classList.add("active");
+        });
+      });
+
+      // Edit book functionality
+      const editButtons = document.querySelectorAll(".edit-book-btn");
+
+      editButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+          const name = this.getAttribute("data-name");
+          const price = this.getAttribute("data-price");
+          const quantity = this.getAttribute("data-quantity");
+
+          // Switch to edit tab
+          tabs.forEach((t) => t.classList.remove("active"));
+          sections.forEach((s) => s.classList.remove("active"));
+
+          document
+            .querySelector('[data-tab="edit-book"]')
+            .classList.add("active");
+          document.getElementById("edit-book-section").classList.add("active");
+
+          // Fill form with book data
+          document.getElementById("edit-book-name").value = name;
+          document.getElementById("edit-book-price").value = price;
+          document.getElementById("edit-book-quantity").value = quantity;
+        });
+      });
+
+      // Book search functionality
+      const searchInput = document.getElementById("book-search");
+
+      searchInput.addEventListener("input", function () {
+        const searchTerm = this.value.toLowerCase();
+        const rows = document.querySelectorAll(".admin-table tbody tr");
+
+        rows.forEach((row) => {
+          const bookName = row
+            .querySelector("td:first-child")
+            .textContent.toLowerCase();
+
+          if (bookName.includes(searchTerm)) {
+            row.style.display = "";
+          } else {
+            row.style.display = "none";
+          }
+        });
+      });
+    </script>
+  </body>
 </html>

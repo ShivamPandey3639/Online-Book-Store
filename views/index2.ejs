@@ -1,63 +1,370 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registration</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Custom CSS -->
-  <style>
-    body {
-      background-color: #C8ACD6;
-      padding-top: 50px;
-      font-family: system-ui;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Bazaar - Registration</title>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .page-header {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--secondary) 100%
+        );
+        color: white;
+        padding: var(--spacing-4) 0;
+        margin-bottom: var(--spacing-4);
+        border-radius: var(--border-radius);
+        text-align: center;
+      }
 
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
+      .registration-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: var(--spacing-4);
+        background-color: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+      }
 
-    #registration-form {
-      text-align: center;
-    }
+      .form-divider {
+        display: flex;
+        align-items: center;
+        margin: var(--spacing-4) 0;
+      }
 
-    #book-display, #shopping-cart {
-      display: none; /* Hide book display and shopping cart on registration page */
-    }
+      .form-divider::before,
+      .form-divider::after {
+        content: "";
+        flex: 1;
+        border-bottom: 1px solid var(--gray-300);
+      }
 
-    .card {
-      margin-bottom: 20px;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <!-- Registration Form -->
-    <div id="registration-form">
-      <h2>Register</h2>
-      <form action="/register" method="post">
-        <div class="form-group">
-          <label for="new-username">Username</label>
-          <input type="text" class="form-control" name="new-username" id="new-username" required>
-        </div>
-        <div class="form-group">
-          <label for="new-email">Email</label>
-          <input type="email" class="form-control" name="new-email" id="new-email" required>
-        </div>
-        <div class="form-group">
-          <label for="new-contact">Contact No</label>
-          <input type="text" class="form-control" name="new-contact" id="new-contact" required>
-        </div>
-        <div class="form-group">
-          <label for="new-password">Password</label>
-          <input type="password" class="form-control" name="new-password" id="new-password" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Register</button>
-        <a href="/login" class="btn btn-secondary">Back to Login</a> <!-- Link to go back to the login page -->
-      </form>
+      .form-divider span {
+        padding: 0 var(--spacing-2);
+        color: var(--gray-600);
+        font-size: var(--font-size-sm);
+      }
+
+      .social-signup {
+        display: flex;
+        justify-content: center;
+        gap: var(--spacing-3);
+        margin-bottom: var(--spacing-4);
+      }
+
+      .social-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--gray-100);
+        color: var(--gray-700);
+        transition: all 0.2s ease;
+      }
+
+      .social-btn:hover {
+        background-color: var(--primary);
+        color: white;
+      }
+
+      .password-requirements {
+        margin-top: var(--spacing-2);
+        font-size: var(--font-size-sm);
+        color: var(--gray-600);
+      }
+
+      .requirement {
+        display: flex;
+        align-items: center;
+        margin-bottom: var(--spacing-1);
+      }
+
+      .requirement i {
+        margin-right: var(--spacing-1);
+        font-size: 12px;
+      }
+
+      .valid {
+        color: var(--success);
+      }
+
+      .invalid {
+        color: var(--gray-500);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="container">
+        <a href="/" class="navbar-brand">
+          <i class="fas fa-book-open mr-2"></i> Book Bazaar
+        </a>
+        <ul class="navbar-nav">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="#" class="nav-link">Books</a></li>
+          <li><a href="#" class="nav-link">Categories</a></li>
+          <li><a href="#" class="nav-link">About</a></li>
+          <li><a href="#" class="nav-link">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="container">
+      <div class="page-header">
+        <h1>Create Your Account</h1>
+        <p>Join Book Bazaar to start your reading journey</p>
+      </div>
     </div>
-  </div>
-</body>
+
+    <!-- Registration Form -->
+    <div class="container">
+      <div class="registration-container fade-in">
+        <form action="/register" method="post" id="registration-form">
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="new-username" class="form-label">Username</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="new-username"
+                  id="new-username"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="new-email" class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  name="new-email"
+                  id="new-email"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="new-contact" class="form-label">Contact Number</label>
+            <input
+              type="tel"
+              class="form-control"
+              name="new-contact"
+              id="new-contact"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="new-password" class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              name="new-password"
+              id="new-password"
+              required
+            />
+
+            <div class="password-requirements">
+              <p class="mb-1">Password must contain:</p>
+              <div class="requirement" id="length-req">
+                <i class="fas fa-circle"></i>
+                <span>At least 8 characters</span>
+              </div>
+              <div class="requirement" id="uppercase-req">
+                <i class="fas fa-circle"></i>
+                <span>At least one uppercase letter</span>
+              </div>
+              <div class="requirement" id="lowercase-req">
+                <i class="fas fa-circle"></i>
+                <span>At least one lowercase letter</span>
+              </div>
+              <div class="requirement" id="number-req">
+                <i class="fas fa-circle"></i>
+                <span>At least one number</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="confirm-password" class="form-label"
+              >Confirm Password</label
+            >
+            <input
+              type="password"
+              class="form-control"
+              id="confirm-password"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="terms"
+                required
+              />
+              <label class="form-check-label" for="terms">
+                I agree to the <a href="#">Terms of Service</a> and
+                <a href="#">Privacy Policy</a>
+              </label>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%">
+            Create Account
+          </button>
+
+          <div class="form-divider">
+            <span>OR</span>
+          </div>
+
+          <div class="social-signup">
+            <a href="#" class="social-btn"><i class="fab fa-google"></i></a>
+            <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+          </div>
+
+          <div class="text-center">
+            <p class="mb-0">Already have an account? <a href="/">Login</a></p>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer mt-5">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3 class="footer-title">Book Bazaar</h3>
+            <p>
+              Your one-stop destination for all your reading needs. Discover,
+              buy, and enjoy books from the comfort of your home.
+            </p>
+          </div>
+          <div class="footer-section">
+            <h3 class="footer-title">Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="/" class="footer-link">Home</a></li>
+              <li><a href="#" class="footer-link">Books</a></li>
+              <li><a href="#" class="footer-link">Categories</a></li>
+              <li><a href="#" class="footer-link">About Us</a></li>
+              <li><a href="#" class="footer-link">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3 class="footer-title">Contact Us</h3>
+            <ul class="footer-links">
+              <li>
+                <a href="mailto:info@bookbazaar.com" class="footer-link"
+                  ><i class="fas fa-envelope mr-2"></i> info@bookbazaar.com</a
+                >
+              </li>
+              <li>
+                <a href="tel:+1234567890" class="footer-link"
+                  ><i class="fas fa-phone mr-2"></i> +123 456 7890</a
+                >
+              </li>
+              <li>
+                <a href="#" class="footer-link"
+                  ><i class="fas fa-map-marker-alt mr-2"></i> 123 Book Street,
+                  Reading City</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2023 Book Bazaar. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+      // Password validation
+      const passwordInput = document.getElementById("new-password");
+      const confirmPasswordInput = document.getElementById("confirm-password");
+      const lengthReq = document.getElementById("length-req");
+      const uppercaseReq = document.getElementById("uppercase-req");
+      const lowercaseReq = document.getElementById("lowercase-req");
+      const numberReq = document.getElementById("number-req");
+
+      passwordInput.addEventListener("input", function () {
+        const password = this.value;
+
+        // Check length
+        if (password.length >= 8) {
+          lengthReq.querySelector("i").classList.add("valid");
+          lengthReq.querySelector("i").classList.remove("invalid");
+        } else {
+          lengthReq.querySelector("i").classList.add("invalid");
+          lengthReq.querySelector("i").classList.remove("valid");
+        }
+
+        // Check uppercase
+        if (/[A-Z]/.test(password)) {
+          uppercaseReq.querySelector("i").classList.add("valid");
+          uppercaseReq.querySelector("i").classList.remove("invalid");
+        } else {
+          uppercaseReq.querySelector("i").classList.add("invalid");
+          uppercaseReq.querySelector("i").classList.remove("valid");
+        }
+
+        // Check lowercase
+        if (/[a-z]/.test(password)) {
+          lowercaseReq.querySelector("i").classList.add("valid");
+          lowercaseReq.querySelector("i").classList.remove("invalid");
+        } else {
+          lowercaseReq.querySelector("i").classList.add("invalid");
+          lowercaseReq.querySelector("i").classList.remove("valid");
+        }
+
+        // Check number
+        if (/[0-9]/.test(password)) {
+          numberReq.querySelector("i").classList.add("valid");
+          numberReq.querySelector("i").classList.remove("invalid");
+        } else {
+          numberReq.querySelector("i").classList.add("invalid");
+          numberReq.querySelector("i").classList.remove("valid");
+        }
+      });
+
+      // Form validation
+      document
+        .getElementById("registration-form")
+        .addEventListener("submit", function (e) {
+          const password = passwordInput.value;
+          const confirmPassword = confirmPasswordInput.value;
+
+          if (password !== confirmPassword) {
+            e.preventDefault();
+            alert("Passwords do not match!");
+          }
+        });
+    </script>
+  </body>
 </html>

@@ -1,88 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Online Bookstore</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Custom CSS -->
-  <style>
-    body {
-      padding-top: 50px;
-      background-color:slategrey;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Bazaar - Admin Login</title>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .admin-login-container {
+        max-width: 450px;
+        margin: 0 auto;
+        padding: var(--spacing-4);
+        background-color: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+      }
 
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+      .admin-header {
+        background: linear-gradient(
+          135deg,
+          var(--primary-dark) 0%,
+          var(--secondary) 100%
+        );
+        color: white;
+        padding: var(--spacing-4) 0;
+        margin-bottom: var(--spacing-4);
+        border-radius: var(--border-radius);
+        text-align: center;
+      }
 
-    #login-form {
-      text-align: center;
-      margin-bottom: 30px;
-    }
+      .admin-icon {
+        font-size: 3rem;
+        margin-bottom: var(--spacing-3);
+        color: var(--primary);
+      }
 
-    #book-display, #shopping-cart {
-      margin-top: 30px;
-      text-align: center;
-    }
+      .back-to-site {
+        margin-top: var(--spacing-4);
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="container">
+        <a href="/" class="navbar-brand">
+          <i class="fas fa-book-open mr-2"></i> Book Bazaar
+        </a>
+        <ul class="navbar-nav">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="#" class="nav-link">Books</a></li>
+          <li><a href="#" class="nav-link">Categories</a></li>
+          <li><a href="#" class="nav-link">About</a></li>
+          <li><a href="#" class="nav-link">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
 
-    #cart-items {
-      padding-left: 0;
-    }
+    <!-- Admin Login Section -->
+    <div class="container">
+      <div class="admin-header">
+        <h1>Admin Dashboard</h1>
+        <p>Secure access for administrators only</p>
+      </div>
 
-    .card {
-      margin-bottom: 20px;
-    }
-    .admin-login {
-  margin-top: 20px; /* Adjust margin as needed */
-}
-
-  </style>
-</head>
-<body>
-  <div class="container">
-    <!-- Login Form -->
-    <div id="login-form">
-      <h2>Admin Login</h2>
-      <form action="/submit2" class="form" method="post">
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" class="form-control" name="namess" id="username" required>
+      <div class="admin-login-container fade-in">
+        <div class="text-center">
+          <div class="admin-icon">
+            <i class="fas fa-user-shield"></i>
+          </div>
+          <h2 class="mb-4">Admin Login</h2>
         </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" name="passwords"  id="password" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Login</button>
-        
-      </form>
-      
-    </div>
 
-    <!-- Book Display Section -->
-    <div id="book-display" style="display: none;">
-      <h2>Books</h2>
-      <input type="text" class="form-control mb-3" id="search-bar" placeholder="Search for books...">
-      <div id="book-list" class="row">
-        <!-- Book items will be dynamically added here -->
+        <form action="/submit2" method="post">
+          <div class="form-group">
+            <label for="username" class="form-label">Username</label>
+            <input
+              type="text"
+              class="form-control"
+              name="namess"
+              id="username"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              name="passwords"
+              id="password"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <div class="text-right">
+              <a href="#" class="text-sm">Forgot Password?</a>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%">
+            <i class="fas fa-sign-in-alt mr-2"></i> Login
+          </button>
+        </form>
+
+        <div class="back-to-site">
+          <a href="/" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left mr-2"></i> Back to Main Site
+          </a>
+        </div>
       </div>
     </div>
 
-    <!-- Shopping Cart Section -->
-    <div id="shopping-cart" style="display: none;">
-      <h2>Shopping Cart</h2>
-      <ul id="cart-items" class="list-group mb-3">
-        <!-- Cart items will be dynamically added here -->
-      </ul>
-      <div id="cart-total" class="text-right"></div>
-      <button type="button" class="btn btn-primary" onclick="checkout()">Checkout</button>
-    </div>
-    
-  </div>
-</body>
+    <!-- Footer -->
+    <footer class="footer mt-5">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3 class="footer-title">Book Bazaar</h3>
+            <p>
+              Your one-stop destination for all your reading needs. Discover,
+              buy, and enjoy books from the comfort of your home.
+            </p>
+          </div>
+          <div class="footer-section">
+            <h3 class="footer-title">Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="/" class="footer-link">Home</a></li>
+              <li><a href="#" class="footer-link">Books</a></li>
+              <li><a href="#" class="footer-link">Categories</a></li>
+              <li><a href="#" class="footer-link">About Us</a></li>
+              <li><a href="#" class="footer-link">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3 class="footer-title">Contact Us</h3>
+            <ul class="footer-links">
+              <li>
+                <a href="mailto:info@bookbazaar.com" class="footer-link"
+                  ><i class="fas fa-envelope mr-2"></i> info@bookbazaar.com</a
+                >
+              </li>
+              <li>
+                <a href="tel:+1234567890" class="footer-link"
+                  ><i class="fas fa-phone mr-2"></i> +123 456 7890</a
+                >
+              </li>
+              <li>
+                <a href="#" class="footer-link"
+                  ><i class="fas fa-map-marker-alt mr-2"></i> 123 Book Street,
+                  Reading City</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2023 Book Bazaar. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
 </html>
