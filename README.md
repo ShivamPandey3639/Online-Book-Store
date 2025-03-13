@@ -2,7 +2,7 @@
 
 Book Bazaar is a modern, responsive online bookstore application built with Node.js, Express, and MySQL. It provides a user-friendly interface for customers to browse, search, and purchase books, as well as an admin dashboard for managing inventory and customers.
 
-![Book Bazaar Screenshot](![image](https://github.com/user-attachments/assets/f9478a38-9781-432a-b1a5-62cce2620915)
+![image](https://github.com/user-attachments/assets/f9478a38-9781-432a-b1a5-62cce2620915)
 )
 
 ## Features
